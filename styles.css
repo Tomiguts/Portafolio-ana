@@ -2,7 +2,8 @@
     --bg-color: #FCF9C1;
     --accent-color: #F6D499;
     --text-color: #333;
-    --overlay-bg: rgba(252, 249, 193, 0.9); /* #FCF9C1 with opacity */
+    --overlay-bg: rgba(252, 249, 193, 0.9);
+    /* #FCF9C1 with opacity */
 }
 
 * {
@@ -15,7 +16,8 @@ body {
     background-color: var(--bg-color);
     font-family: 'Lato', sans-serif;
     color: var(--text-color);
-    overflow: hidden; /* Hide main scrollbar */
+    overflow: hidden;
+    /* Hide main scrollbar */
     height: 100vh;
     display: flex;
     align-items: center;
@@ -31,21 +33,25 @@ body {
     gap: 4vw;
     scroll-behavior: smooth;
     /* Hide scrollbar for clean look */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
 }
 
 .gallery-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari/Opera */
+    display: none;
+    /* Chrome/Safari/Opera */
 }
 
 .gallery-item {
     flex: 0 0 auto;
-    height: 80vh; /* Prioritize image size */
+    height: 80vh;
+    /* Prioritize image size */
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     background-color: var(--accent-color);
     opacity: 0;
@@ -54,7 +60,7 @@ body {
 
 .gallery-item:hover {
     transform: scale(1.02);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     z-index: 10;
 }
 
@@ -63,7 +69,8 @@ body {
     width: auto;
     display: block;
     object-fit: cover;
-    min-width: 300px; /* Ensure thin images have some width */
+    min-width: 300px;
+    /* Ensure thin images have some width */
     max-width: 80vw;
 }
 
@@ -82,7 +89,8 @@ body {
     text-align: center;
     opacity: 0;
     transition: opacity 0.4s ease;
-    overflow-y: auto; /* Allow scrolling for long text */
+    overflow-y: auto;
+    /* Allow scrolling for long text */
 }
 
 .gallery-item:hover .overlay {
@@ -105,18 +113,36 @@ body {
 }
 
 /* Staggered animation delays */
-.gallery-item:nth-child(1) { animation-delay: 0.1s; }
-.gallery-item:nth-child(2) { animation-delay: 0.2s; }
-.gallery-item:nth-child(3) { animation-delay: 0.3s; }
-.gallery-item:nth-child(4) { animation-delay: 0.4s; }
-.gallery-item:nth-child(5) { animation-delay: 0.5s; }
-.gallery-item:nth-child(n+6) { animation-delay: 0.6s; }
+.gallery-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.gallery-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.gallery-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.gallery-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.gallery-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.gallery-item:nth-child(n+6) {
+    animation-delay: 0.6s;
+}
 
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -139,7 +165,102 @@ body {
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(-50%);}
-    40% {transform: translateY(-60%);}
-    60% {transform: translateY(-55%);}
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(-50%);
+    }
+
+    40% {
+        transform: translateY(-60%);
+    }
+
+    60% {
+        transform: translateY(-55%);
+    }
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+    body {
+        display: block;
+        height: auto;
+        overflow-y: auto;
+        /* Enable vertical scroll */
+        overflow-x: hidden;
+    }
+
+    .gallery-container {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        overflow-x: hidden;
+        padding: 2rem 1.5rem;
+        gap: 3rem;
+    }
+
+    /* Disable horizontal scroll hint on mobile */
+    .gallery-container::after {
+        display: none;
+    }
+
+    .gallery-item {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        /* Reset transform and opacity for immediate visibility */
+        transform: none !important;
+        opacity: 1;
+        /* Ensure visible without animation delay issues if scrolled */
+        animation: none;
+        /* Optional: simplify on mobile */
+    }
+
+    .gallery-item:hover {
+        transform: none;
+        z-index: 1;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        min-width: 0;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .overlay {
+        position: relative;
+        width: 100%;
+        height: auto;
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.4);
+        /* Subtle background for text */
+        padding: 1.5rem;
+        text-align: left;
+        border-radius: 0 0 10px 10px;
+        overflow-y: visible;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .gallery-container .gallery-item:hover .overlay {
+        opacity: 1;
+        /* Keep visible */
+    }
+
+    .overlay h3 {
+        font-size: 1.5rem;
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .overlay p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        max-width: 100%;
+        text-align: justify;
+    }
 }
