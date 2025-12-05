@@ -260,7 +260,7 @@
 
         container.addEventListener('wheel', (evt) => {
             evt.preventDefault();
-            container.scrollLeft += evt.deltaY;
+            container.scrollLeft += evt.deltaY * 3;
         });
     </script>
 </body>
